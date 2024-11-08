@@ -24,7 +24,6 @@ networkx==3.4.2
 numba==0.60.0
 numpy==2.0.2
 openai==1.54.2
-openai-whisper==20240930
 packaging==24.1
 pydantic==2.9.2
 pydantic_core==2.23.4
