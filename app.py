@@ -58,6 +58,7 @@ def transcribe(audio_file_path):
         raise Exception(f"Transcription failed: {str(e)}")
 
 def match_tag_num(text_msg):
+# tag number을 결정하는 mapping algorithm. (-> LLM을 통한 처리 가능성)
     vocab_list = text_msg.split()
     if '도서관' in vocab_list:
         if '정문' in vocab_list:
@@ -118,11 +119,13 @@ def get_signal(tag_num):
     # 클라이언트가 기다릴 수 있도록 (10분 이상 대기 가능)
     timeout = 600  # 10 minutes (= 600 sec)
     elapsed_time = 0
-    interval = 1  # Polling interval
+    interval = 10  # Polling interval
 
     while elapsed_time < timeout:
         # 이 while 문이 10분동안 돌고있는 동안 server_status["signal"] 값이 바뀌어야 함.
         signal = client_status[tag_num]["signal"]
+        print(elapsed_time)
+        print(signal)
         if signal is not None:
             client_status[tag_num]["signal"] = None  # 신호 초기화
             return jsonify({"signal": signal}), 200
